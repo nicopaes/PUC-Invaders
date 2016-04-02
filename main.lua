@@ -30,6 +30,8 @@ function love.update(dt)
 end
 
 function love.draw(dt)
+  --Desenha a hit box do player (um retângulo no modo fill
+  --love.graphics.rectangle("fill",player.x,player.y,50,50)
   --desenha o player
   love.graphics.draw(player.img, player.x, player.y)
 end
