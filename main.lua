@@ -29,4 +29,6 @@ function love.update(dt)
 end
 
 function love.draw(dt)
+  --desenha o player
+  love.graphics.draw(player.img, player.x, player.y)
 end
