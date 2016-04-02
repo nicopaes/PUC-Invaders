@@ -5,6 +5,7 @@ player = {x = 200, y = 710, speed = 150, img = nil}
 
 
 function love.load(arg)
+  player.img = love.graphics.newImage('assets/plane.png')
 end
 function love.update(dt)
   --saindo do jogo quando o player apertar esc
