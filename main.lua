@@ -1,24 +1,32 @@
-local RPG_local = require "RPG_Full_Logo/RPG_Logo"
+debug = true  -- mudar pra false no release
 
-local state
 
-function love.load()
-  RPG_Logo.load(1.5,1.5,1.5)
-  state = RPG_Logo
-  player.load()
-  
+player = {x = 200, y = 710, speed = 150, img = nil}
+
+
+function love.load(arg)
 end
 function love.update(dt)
-  state.update(dt)
-  player.update(dt)
+  --saindo do jogo quando o player apertar esc
+    if love.keyboard.isDown('escape') then
+      love.event.push('quit')
+    end
+    --movimentação lateral do player
+    if love.keyboard.isDown('left','a') then
+      --limitação lateral a esquerda dentro da área da janela
+      if player.x > 0 then
+      player.x = player.x - (player.speed*dt)
+    end
+  elseif love.keyboard.isDown('right','d') then
+    --limitação lateral a direita dentro da area da janela
+      --diminui a area total da janela pela area da img do player
+    if player.x < (love.graphics.getWidth() - player.img:getWidth()) then
+      player.x = player.x + (player.speed*dt)
+    end
+    
+  end
+    
 end
-function love.draw()
-  state.draw()
-  player.draw()
-end
-function love.keypressed(key)
-  state.keypressed(key)
-end
-function love.gamepadpressed(joystick,button)
-  state.gamepadpressed(joystick,button)
+
+function love.draw(dt)
 end
