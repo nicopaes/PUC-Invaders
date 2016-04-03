@@ -33,6 +33,7 @@ function enemy:move(direction)
   -- Muda a direção dele caso ele tenha chegando em limites pré estabelecidos 
   if self.hitWall == 0 then
   newValue = self.x + direction
+  
   else if self.hitWall == 1 then
   newValue = self.x - direction
 end
@@ -40,14 +41,16 @@ end
 
 if self.x > 700 then
   self.hitWall = 1
+  self.y = self.y + 50 --faz o inimigo mover-se para baixo, o ideal eh +-10, ta 50 pra testar mais rapido
 end
 if self.hitWall and self.x < 10 then
   self.hitWall = 0 
+  self.y = self.y + 50 --faz o inimigo mover-se para baixo, o ideal eh +-10, ta 50 pra testar mais rapido
 end
 
   -- Move apenas se não ultrapassar as bordas da tela e muda de direção
   if 0 < newValue and newValue < love.graphics.getWidth() - self.img:getWidth()*self.scaleX  then
-    self.x = newValue
+    self.x = newValue  
   end
+  
 end
-
