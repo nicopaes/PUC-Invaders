@@ -28,6 +28,7 @@ function love.update(dt)
   end
   
   enemy:move(enemy.speed*dt)
+  enemy:shoot()
   
   
   
@@ -38,5 +39,6 @@ function love.draw()
   player:draw()
   player:drawShotsFired()
   enemy:draw()
+  enemy:drawShotsFired()
   
 end
