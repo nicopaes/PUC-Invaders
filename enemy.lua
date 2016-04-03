@@ -28,6 +28,9 @@ function enemy:draw()
   love.graphics.draw(self.img, self.x, self.y,0,self.scaleX,self.scaleY)
   love.graphics.print(tostring(self.x),10,10) -- Printar a posição X do inimigo
   love.graphics.print(tostring(self.hitWall),10,20) -- Printar a varíavel de "bater na parede"
+  if self.y > 710 then
+    love.graphics.print("GAME OVER", love.graphics.getWidth()/2,love.graphics.getHeight()/2)
+  end
   
 end
 function enemy:move(direction)
@@ -80,7 +83,7 @@ function enemy:shoot()
 end
 
 function enemy:drawShotsFired()
-  ---- Função que desenha todos os tiros dados pelo enemy
+  ---- Função que desenha todos os tiros dados pelo enemy 
   
   i = 1
   while self.shotsFired[i] do
