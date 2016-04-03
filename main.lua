@@ -1,9 +1,11 @@
 require "player"
+require "enemy"
 
 debug = true  -- mudar pra false no release
 
 function love.load(arg) 
   player:setImage('assets/plane.png')
+  enemy:setImage('assets/Invader1.png')
 end
 
 function love.update(dt)
@@ -24,9 +26,17 @@ function love.update(dt)
   if love.keyboard.isDown('up','w') then
     player:shoot()
   end
+  
+  enemy:move(enemy.speed*dt)
+  
+  
+  
 end
+
 
 function love.draw()
   player:draw()
   player:drawShotsFired()
+  enemy:draw()
+  
 end
