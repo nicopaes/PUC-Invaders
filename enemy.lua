@@ -1,4 +1,4 @@
-require "enemy_shoot"
+require "shoot"
 
 enemy = {
           x = 50,
@@ -70,9 +70,10 @@ function enemy:shoot()
   -- Atira apenas se passou o tempo de recarga
   if timeElapsed >= rechargeTimeInSeconds then
     -- Aloca um novo tiro e seta a posição dele acima e no centro da nave
-    newShoot = enemy_Shoot:new()
+    newShoot = Shoot:new()
     newShoot.x = self.x + newShoot.img:getWidth() * 3.5
     newShoot.y = self.y + newShoot.img:getHeight() * 1.5
+    newShoot.speed = -400
     
     -- Insere o novo tiro no final da table de tiros dados
     table.insert(self.shotsFired, newShoot)
