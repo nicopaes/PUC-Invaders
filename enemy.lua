@@ -7,7 +7,7 @@ Enemy = {
           shotsFired = {},
           lastShoot = -1,
           rechargeTime = 500, -- Tempo para o próximo tiro, em milisegundos
-          img = nil,
+          img = love.graphics.newImage('Assets/Invader1.png'),
           scaleX = 0.2, -- Escala (X) da imagem relacionada ao inimigo
           scaleY = 0.2, -- Escala (Y) da imagem relacionada ao inimigo
           hitWall = 0, -- Booleana que verifica quando o inimigo bateu em uma parede
@@ -33,11 +33,6 @@ function Enemy:draw()
   ---- Desenha o inimigo
   
   love.graphics.draw(self.img, self.x, self.y,0,self.scaleX,self.scaleY)
-  love.graphics.print(tostring(self.x),10,10) -- Printar a posição X do inimigo
-  love.graphics.print(tostring(self.hitWall),10,20) -- Printar a varíavel de "bater na parede"
-  if self.y > 710 then
-    love.graphics.print("GAME OVER", love.graphics.getWidth()/2,love.graphics.getHeight()/2)
-  end
 end
 
 function Enemy:move(direction)
