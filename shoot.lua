@@ -1,6 +1,8 @@
 Shoot = {
           x = 0,
           y = 0,
+          scaleX = 1,
+          scaleY = 1,
           speed = 400,
           img = love.graphics.newImage('assets/shoot.png')
        }
@@ -35,4 +37,20 @@ function Shoot:updatePosition(dt)
   ---- Atualiza a posição do tiro
   
   self.y = self.y - self.speed * dt
+end
+
+function Shoot:top()
+  return self.y
+end
+
+function Shoot:bottom()
+  return self.y + self.img:getHeight() * self.scaleY
+end
+
+function Shoot:left()
+  return self.x
+end
+
+function Shoot:right()
+  return self.x + self.img:getWidth() * self.scaleX
 end

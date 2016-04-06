@@ -1,6 +1,6 @@
 require "shoot"
 
-enemy = {
+Enemy = {
           x = 50,
           y = 50, 
           speed = 0, -- Está alta, para faciolitar os testes (ideal +- 50)
@@ -14,15 +14,22 @@ enemy = {
           HP = 1 
         }
         
+function Enemy:new(obj)
+  obj = obj or {}
+  
+  setmetatable(obj, self)
+  self.__index = self
+  
+  return obj
+end
 
-
-function enemy:setImage(directory)
+function Enemy:setImage(directory)
   ---- Seta o sprite da nave
   
   self.img = love.graphics.newImage(directory)
 end
 
-function enemy:draw()
+function Enemy:draw()
   ---- Desenha o inimigo
   
   love.graphics.draw(self.img, self.x, self.y,0,self.scaleX,self.scaleY)
@@ -31,27 +38,26 @@ function enemy:draw()
   if self.y > 710 then
     love.graphics.print("GAME OVER", love.graphics.getWidth()/2,love.graphics.getHeight()/2)
   end
-  
 end
-function enemy:move(direction)
+
+function Enemy:move(direction)
   ---- Move o inimigo
   -- Muda a direção dele caso ele tenha chegando em limites pré estabelecidos 
   if self.hitWall == 0 then
-  newValue = self.x + direction
-  
-  else if self.hitWall == 1 then
-  newValue = self.x - direction
-end
-end
+    newValue = self.x + direction
+  elseif self.hitWall == 1 then
+    newValue = self.x - direction
+  end
 
-if self.x > 700 then
-  self.hitWall = 1
-  self.y = self.y + 50 --faz o inimigo mover-se para baixo, o ideal eh +-10, ta 50 pra testar mais rapido
-end
-if self.hitWall and self.x < 10 then
-  self.hitWall = 0 
-  self.y = self.y + 50 --faz o inimigo mover-se para baixo, o ideal eh +-10, ta 50 pra testar mais rapido
-end
+  if self.x > 700 then
+    self.hitWall = 1
+    self.y = self.y + 50 --faz o inimigo mover-se para baixo, o ideal eh +-10, ta 50 pra testar mais rapido
+  end
+  
+  if self.hitWall and self.x < 10 then
+    self.hitWall = 0 
+    self.y = self.y + 50 --faz o inimigo mover-se para baixo, o ideal eh +-10, ta 50 pra testar mais rapido
+  end
 
   -- Move apenas se não ultrapassar as bordas da tela e muda de direção
   if 0 < newValue and newValue < love.graphics.getWidth() - self.img:getWidth()*self.scaleX  then
@@ -60,7 +66,7 @@ end
   
 end
 
-function enemy:shoot()
+function Enemy:shoot()
   ---- Função que aloca um novo tiro dado pelo enemy
 
   -- Calcula a tempo que se passou desde o último tiro e transforma o tempo de recarga para segundos
@@ -83,7 +89,7 @@ function enemy:shoot()
   end
 end
 
-function enemy:drawShotsFired()
+function Enemy:drawShotsFired()
   ---- Função que desenha todos os tiros dados pelo enemy 
   
   i = 1
@@ -103,4 +109,20 @@ function enemy:drawShotsFired()
     
     i = i + 1
   end
+end
+
+function Enemy:top()
+  return self.y
+end
+
+function Enemy:bottom()
+  return self.y + self.img:getHeight() * self.scaleY
+end
+
+function Enemy:left()
+  return self.x
+end
+
+function Enemy:right()
+  return self.x + self.img:getWidth() * self.scaleX
 end

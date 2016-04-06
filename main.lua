@@ -1,11 +1,13 @@
+require "level_manager"
 require "player"
 require "enemy"
 
 debug = true  -- mudar pra false no release
 
+lm = LevelManager:new({level = 1})
+
 function love.load(arg) 
-  player:setImage('assets/plane.png')
-  enemy:setImage('assets/Invader1.png')
+  lm:loadAgents()
 end
 
 function love.update(dt)
@@ -27,18 +29,15 @@ function love.update(dt)
     player:shoot()
   end
   
-  enemy:move(enemy.speed*dt)
-  enemy:shoot()
-  
-  
-  
+  lm:moveEnemies(dt)
 end
 
 
 function love.draw()
   player:draw()
   player:drawShotsFired()
-  enemy:draw()
-  enemy:drawShotsFired()
   
+  lm:drawEnemies()
+  
+  lm:detectCollision()
 end
