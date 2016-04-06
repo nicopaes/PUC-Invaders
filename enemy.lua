@@ -3,7 +3,7 @@ require "shoot"
 enemy = {
           x = 50,
           y = 50, 
-          speed = 500, -- Está alta, para faciolitar os testes (ideal +- 50)
+          speed = 0, -- Está alta, para faciolitar os testes (ideal +- 50)
           shotsFired = {},
           lastShoot = -1,
           rechargeTime = 500, -- Tempo para o próximo tiro, em milisegundos

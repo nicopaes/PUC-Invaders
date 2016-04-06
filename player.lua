@@ -1,4 +1,4 @@
-require "player_shoot"
+require "shoot"
 
 player = {
           x = 400,
