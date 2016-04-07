@@ -3,7 +3,7 @@ require "shoot"
 Enemy = {
           x = 50,
           y = 50, 
-          speed = 0, -- Está alta, para faciolitar os testes (ideal +- 50)
+          speed = 20, -- Está alta, para faciolitar os testes (ideal +- 50)
           shotsFired = {},
           lastShoot = -1,
           rechargeTime = 500, -- Tempo para o próximo tiro, em milisegundos
@@ -35,30 +35,16 @@ function Enemy:draw()
   love.graphics.draw(self.img, self.x, self.y,0,self.scaleX,self.scaleY)
 end
 
-function Enemy:move(direction)
+function Enemy:move(dt)
   ---- Move o inimigo
-  -- Muda a direção dele caso ele tenha chegando em limites pré estabelecidos 
-  if self.hitWall == 0 then
-    newValue = self.x + direction
-  elseif self.hitWall == 1 then
-    newValue = self.x - direction
-  end
-
-  if self.x > 700 then
-    self.hitWall = 1
-    self.y = self.y + 50 --faz o inimigo mover-se para baixo, o ideal eh +-10, ta 50 pra testar mais rapido
-  end
   
-  if self.hitWall and self.x < 10 then
-    self.hitWall = 0 
-    self.y = self.y + 50 --faz o inimigo mover-se para baixo, o ideal eh +-10, ta 50 pra testar mais rapido
-  end
+  self.x = self.x + self.speed * dt
+end
 
-  -- Move apenas se não ultrapassar as bordas da tela e muda de direção
-  if 0 < newValue and newValue < love.graphics.getWidth() - self.img:getWidth()*self.scaleX  then
-    self.x = newValue  
-  end
+function Enemy:moveDown()
+  ---- Move inimido para baixo
   
+  self.y = self.y + 20
 end
 
 function Enemy:shoot()
