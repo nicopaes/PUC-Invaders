@@ -77,17 +77,20 @@ function LevelManager:detectCollision()
   for i,s in ipairs(player.shotsFired) do
     for j,line in ipairs(enemyList) do
       for k,enemy in ipairs(line) do
-        
-        if s:left() < enemy:right() and s:right() > enemy:left() and
+      
+        if s and s:left() < enemy:right() and s:right() > enemy:left() and
           s:top() < enemy:bottom() and s:bottom() > enemy:top() then
             table.remove(player.shotsFired, i)
+            s = nil -- evita que um tiro elimine múltiplos inimigos
             
             table.remove(line, k)
+            table.remove(aliveEnemies)
             
             if #aliveEnemies == 0 then
               print "YOU WIN"
             end
         end
+        
       end
     end
   end

@@ -44,7 +44,7 @@ end
 function Enemy:moveDown()
   ---- Move inimido para baixo
   
-  self.y = self.y + 20
+  self.y = self.y + self.img:getHeight() * self.scaleY + 2
 end
 
 function Enemy:shoot()
