@@ -3,7 +3,7 @@ require "enemy"
 require "shoot"
 
 aliveEnemies = {}
-
+shootPossible = {}
 LevelManager = {
             level = 1
           }
@@ -36,6 +36,12 @@ function LevelManager:loadAgents()
     end
     table.insert(enemyList, line)
   end
+  for t=1,16,1 do
+    shootPossible[t] = 1
+  end
+  for t=17,24,1 do
+    shootPossible[t] = 0
+   end
 end
 
 function LevelManager:moveEnemies(dt)
@@ -84,10 +90,10 @@ function LevelManager:detectCollision()
             s = nil -- evita que um tiro elimine múltiplos inimigos
             
             table.remove(line, k)
-            table.remove(aliveEnemies)
+            table.remove(aliveEnemies,k)
             
             if #aliveEnemies == 0 then
-              print "YOU WIN"
+              love.graphics.print("YOU WIN",400,400)
             end
         end
         
@@ -95,3 +101,14 @@ function LevelManager:detectCollision()
     end
   end
 end
+function LevelManager:enemyShoot()
+  index = love.math.random(1,#aliveEnemies)
+  
+  foe = aliveEnemies[index]
+  blockfoe = shootPossible[index+8]
+  if blockfoe == 0 then
+     
+  foe:shoot()
+  end
+ 
+end 
